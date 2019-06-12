@@ -14,3 +14,7 @@ Controls:
     Left Arrow  - move bat left
     Right Arrow - move bat right
     Escape      - quit game
+
+Wersja na wiiboard z zagadką:
+/opt/braintech/bin/python3 gra_do_rozwiazania.py
+
