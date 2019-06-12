@@ -25,6 +25,7 @@
 import pygame
 import random
 import sys
+import math
 from typing import List, Any
 
 # import matplotlib
@@ -105,17 +106,27 @@ class Breakout():
             ### TU odczytywanie bufora danych i jego analiza
             sample = wiiboard_state_thread.latest_sample
             ################
-            # normalizujemy
-            mx_new = wiiboard_to_position(sample) / 2.0 + 0.5
-            mx = (1-alfa)*mx+ alfa*mx_new
+
+            try:
+               mx_new = wiiboard_to_position(sample) / 2.0 + 0.5
+            except ZeroDivisionError:
+                mx_new = 0.5
+            if math.isnan(mx_new):
+                mx_new = 0.5
+#            mx = (1-alfa)*mx+ alfa*mx_new
+            mx = mx_new
             if mx<0:
                 mx=0
             elif mx>1:
                 mx=1
+            print((sample.top_left + sample.top_right + sample.bottom_left + sample.bottom_right))
+            if (sample.top_left + sample.top_right + sample.bottom_left + sample.bottom_right) < 200:
+                print((sample.top_left + sample.top_right + sample.bottom_left + sample.bottom_right))
+                continue
 
             # przesuwamy paletkę
             batrect.centerx = mx*self.width
-            #print(t, std)
+
             if (batrect.left < 0):
                 batrect.left = 0
             if (batrect.right > self.width):
@@ -258,7 +269,7 @@ class Wall:
             xpos = xpos + self.bricklength
 
 class Sample:
-    def __init(self):
+    def __init__(self):
         self.top_left = 0
         self.top_right = 0
         self.bottom_left = 0
@@ -267,9 +278,9 @@ class Sample:
 
 class WiiboardStateThread(Thread):
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
         self._latest_sample = Sample()
         self._lock = Lock()
+        super().__init__(*args, **kwargs)
 
     def run(self):
         wiiboards = get_wiiboard_devices()
@@ -314,7 +325,7 @@ def wiiboard_to_position(sample):
     x = xy[0]
     ######################################
 
-    return x
+    return x * 2
 
 
 if __name__ == '__main__':
@@ -323,5 +334,5 @@ if __name__ == '__main__':
     thread.daemon = True
     thread.start()
 
-    br = Breakout(thread)
-    br.main()
+    br = Breakout()
+    br.main(thread)
