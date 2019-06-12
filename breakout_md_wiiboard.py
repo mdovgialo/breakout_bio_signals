@@ -324,7 +324,7 @@ def wiiboard_to_position(sample):
     x = xy[0]
     ######################################
 
-    return x * 2
+    return x * 1.5
 
 
 if __name__ == '__main__':
