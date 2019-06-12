@@ -119,7 +119,7 @@ class Breakout():
                 mx=0
             elif mx>1:
                 mx=1
-            print((sample.top_left + sample.top_right + sample.bottom_left + sample.bottom_right))
+
             if (sample.top_left + sample.top_right + sample.bottom_left + sample.bottom_right) < 200:
                 print((sample.top_left + sample.top_right + sample.bottom_left + sample.bottom_right))
                 continue
@@ -305,7 +305,7 @@ def wiiboard_to_position(sample):
     sample.bottom_left
     sample.bottom_right
     zawierające nacisk na czujniki wiiboarda w rogach: lewym górnym, prawym górnym, lewym dolnym i prawym dolnym
-    w newtonach. (1 kilogram ~= 9.81 Newtona.
+    w dekagramach. (1 kilogram = 100 dekagramów).
 
     Gra oczekuje pozycję palety od -1 (najbardziej w lewo) do 1 (najbardziej w prawo) i 0 - centrum
 
