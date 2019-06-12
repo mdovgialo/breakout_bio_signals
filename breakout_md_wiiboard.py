@@ -121,7 +121,6 @@ class Breakout():
                 mx=1
 
             if (sample.top_left + sample.top_right + sample.bottom_left + sample.bottom_right) < 200:
-                print((sample.top_left + sample.top_right + sample.bottom_left + sample.bottom_right))
                 continue
 
             # przesuwamy paletkę
