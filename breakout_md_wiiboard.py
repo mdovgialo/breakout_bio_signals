@@ -106,12 +106,12 @@ class Breakout():
             sample = wiiboard_state_thread.latest_sample
             ################
             # normalizujemy
-            mx_new = wiiboard_to_position(sample)
+            mx_new = wiiboard_to_position(sample) / 2.0 + 0.5
             mx = (1-alfa)*mx+ alfa*mx_new
             if mx<0:
                 mx=0
             elif mx>1:
-                mx=
+                mx=1
 
             # przesuwamy paletkę
             batrect.centerx = mx*self.width
